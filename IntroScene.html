@@ -3,8 +3,106 @@
 <head>
     <meta charset="UTF-8">
     <title>Intro</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: white;
+            overflow: hidden;
+            background-color: darkgrey;
+        }
+
+        #background {
+            background-image: url("assets/Images/배경3.png");
+            background-size: cover;
+            position: relative;
+            overflow: hidden;
+            margin: 0 auto;
+            width: 900px;
+            height: 600px;
+        }
+
+        #controllbox {
+            position: relative;
+            width: 900px;
+            height: 100px;
+        }
+
+        #Character{
+            position: relative;
+            top: 80px;
+            right: -360px;
+        }
+
+        /* 게임 시작 버튼 스타일 */
+        #startButton {
+            position: relative;
+            right: -230px;
+            padding: 20px 50px;
+            font-family: "국립박물관문화재단클래식 Bold";
+            font-size: 20px;
+            font-weight: bold;
+            color: #fff;
+            background-color: #007bff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            margin-bottom: 10px;
+        }
+
+        #startButton:hover {
+            background-color: #0056b3;
+        }
+
+        /* 돌아 가기 버튼 스타일 */
+        #backButton {
+            position: relative;
+            right: -300px;
+            padding: 20px 50px;
+            font-family: "국립박물관문화재단클래식 Bold";
+            font-size: 20px;
+            font-weight: bold;
+            color: #fff;
+            background-color: #ff0000;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        #backButton:hover {
+            background-color: #b30000;
+        }
+    </style>
 </head>
 <body>
+<div id="fullbox">
+    <div id="background">
+        <div id="Character">
+            <img src="assets/Images/256fee4e8eda9ffb4b1641eb9c3ac70a37a0b22b9f9de058da13e8f7aa4c6c5b.gif" width="400px">
+        </div>
+    </div>
+    <div id="controllbox">
+        <button id="startButton" onclick="startGame()">게임 시작</button>
+        <button id="backButton" onclick="backGame()">돌아 가기</button>
+    </div>
+</div>
 
+<script>
+    function  startGame(){
+        window.location.href = "GameScene.html";
+    }
+
+    function backGame(){
+        window.location.href = "https://kyj931221.github.io/DevPort/Content";
+    }
+</script>
 </body>
 </html>
