@@ -19,7 +19,7 @@
         }
 
         #background {
-            background-image: url("assets/Images/델리아의 남극탐험.png");
+            background-image: url("assets/Images/배경3.png");
             background-size: cover;
             position: relative;
             overflow: hidden;
@@ -34,10 +34,16 @@
             height: 100px;
         }
 
+        #Character{
+            position: relative;
+            top: 80px;
+            right: -360px;
+        }
+
         /* 게임 시작 버튼 스타일 */
         #startButton {
             position: relative;
-            right: -220px;
+            right: -230px;
             padding: 20px 50px;
             font-family: "국립박물관문화재단클래식 Bold";
             font-size: 20px;
@@ -79,6 +85,9 @@
 <body>
 <div id="fullbox">
     <div id="background">
+        <div id="Character">
+            <img src="assets/Images/256fee4e8eda9ffb4b1641eb9c3ac70a37a0b22b9f9de058da13e8f7aa4c6c5b.gif" width="400px">
+        </div>
     </div>
     <div id="controllbox">
         <button id="startButton" onclick="startGame()">게임 시작</button>
