@@ -36,7 +36,7 @@
             border: 5px solid black;
         }
 
-        #startText {
+        #startText, #gameOverText {
             position: absolute;
             top: 50%;
             left: 50%;
@@ -46,19 +46,6 @@
             color: #0077ff;
             opacity: 0;
             transition: opacity 0.5s ease;
-        }
-
-        #gameOverText {
-            position: absolute;
-            top: 0%;
-            left: 50%;
-            transform: translate(-50%, 0%);
-            font-size: 35px;
-            font-weight: bold;
-            color: #0077ff;
-            opacity: 0;
-            transition: opacity 0.5s ease;
-            text-align: center;
         }
 
         #timer, #score {
@@ -272,12 +259,10 @@
 
         const scoreUpSound = new Audio("assets/audios/Get_Coin01.mp3");
         const scoreDownSound = new Audio("assets/audios/low_hop.mp3");
-        const winSound = new Audio("assets/audios/03 - Stage Clear.mp3");
 
         const originImage = "assets/Images/256fee4e8eda9ffb4b1641eb9c3ac70a37a0b22b9f9de058da13e8f7aa4c6c5b.gif";
         const collisionImage = "assets/Images/Hit.gif";
         const funImage = "assets/Images/getCoin.gif";
-        const winImage = "assets/Images/win.gif";
 
         function playBackgroundMusic() {
             const backgroundMusic = document.getElementById("backgroundMusic");
@@ -301,19 +286,8 @@
 
         function endGame() {
             clearInterval(gameTimer);
-            if(score >= 10){
-                winScene();
-            }
             $("#gameOverText").html(`게임 종료<br>최종 점수: ${score}`).css("opacity", 1);
             $(".enemy, .item").hide();
-        }
-
-        function winScene() {
-            const bgm = document.getElementById("backgroundMusic")
-            bgm.pause();
-            bgm.currentTime = 0;
-            $("#player").css("background-image", `url(${winImage})`);
-            winSound.play();
         }
 
         function updateScore(value) {
