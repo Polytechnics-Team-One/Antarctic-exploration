@@ -36,7 +36,7 @@
             border: 5px solid black;
         }
 
-        #startText, #gameOverText {
+        #startText{
             position: absolute;
             top: 50%;
             left: 50%;
@@ -48,11 +48,14 @@
             transition: opacity 0.5s ease;
         }
 
-        #timer, #score {
+        #timer, #score, #gameOverText, #gameOverscoreText  {
             position: absolute;
             font-size: 24px;
             color: white;
         }
+
+        #gameOverscoreText {left: 43%; top: 7%}
+        #gameOverText {left: 45%; top: 2%}
         #timer { top: 10px; right: 10px; }
         #score { top: 10px; left: 10px; }
 
@@ -244,6 +247,8 @@
         }
 
         $(document).on("keydown", (event) => {
+            if(ismove === false) return;
+
             if (event.key === "ArrowLeft") {
                 moveLeft();
             } else if (event.key === "ArrowRight") {
@@ -253,14 +258,16 @@
             }
         });
 
-        let timeLeft = 60;
+        let timeLeft = 10; // 임시로 1로 맞춤
         let gameTimer;
         let score = 0;
+
+        let ismove = true;
 
         const scoreUpSound = new Audio("assets/audios/Get_Coin01.mp3");
         const scoreDownSound = new Audio("assets/audios/low_hop.mp3");
 
-        const originImage = "assets/Images/256fee4e8eda9ffb4b1641eb9c3ac70a37a0b22b9f9de058da13e8f7aa4c6c5b.gif";
+        let originImage = "assets/Images/256fee4e8eda9ffb4b1641eb9c3ac70a37a0b22b9f9de058da13e8f7aa4c6c5b.gif";
         const collisionImage = "assets/Images/Hit.gif";
         const funImage = "assets/Images/getCoin.gif";
 
@@ -279,6 +286,7 @@
                     timeLeft--;
                     $("#timer").text("Time: " + timeLeft);
                 } else {
+
                     endGame();
                 }
             }, 1000);
@@ -286,8 +294,30 @@
 
         function endGame() {
             clearInterval(gameTimer);
-            $("#gameOverText").html(`게임 종료<br>최종 점수: ${score}`).css("opacity", 1);
-            $(".enemy, .item").hide();
+
+            if(score < 10)
+            {
+                $("#background").css({
+
+                    "background-image": "url('assets/images/defeatimage.png')",
+                    "background-size": "cover", // cover로 맞추기
+                    "background-position": "center center" // 이미지 위치 조정
+
+                });
+                originImage = "assets/Images/lose.gif"
+                $("#player").css("background-image","url('assets/images/lose.gif')")
+
+            }
+
+
+            $("#player").css("left","350px")
+
+
+            ismove = false;
+
+            $("#gameOverText").html(`게임 종료`).css("opacity", 1);
+            $("#gameOverscoreText").html(`최종 점수: ${score}`).css("opacity", 1);
+            $(".enemy, .item,.item1,.item2").hide();
         }
 
         function updateScore(value) {
@@ -307,7 +337,7 @@
             const currentLeft = parseInt(item.css("left"));
 
             // 이동 거리 조정 (현재보다 적은 값으로 설정)
-            const moveLeft = 1; // 원래 5에서 2로 변경
+            const moveLeft = 5; // 원래 5에서 2로 변경
 
             item.css("left", (currentLeft - moveLeft) + "px");
 
@@ -321,7 +351,7 @@
             const currentLeft = parseInt(item.css("left"));
 
             // 이동 거리 조정 (현재보다 적은 값으로 설정)
-            const moveLeft = 1; // 원래 5에서 2로 변경
+            const moveLeft = 8; // 원래 5에서 2로 변경
 
             item.css("left", (currentLeft - moveLeft) + "px");
 
@@ -335,7 +365,7 @@
             const currentLeft = parseInt(item.css("left"));
 
             // 이동 거리 조정 (현재보다 적은 값으로 설정)
-            const moveLeft = 1; // 원래 5에서 2로 변경
+            const moveLeft = 3; // 원래 5에서 2로 변경
 
             item.css("left", (currentLeft - moveLeft) + "px");
 
@@ -353,7 +383,7 @@
         }
 
         function respawnItem1() {
-            backgroundWidth = $("#background").width() + 150;
+            backgroundWidth = $("#background").width() + 350;
             $(".item1").css({
                 "left": backgroundWidth + "px",
                 "top": "380px"
@@ -361,7 +391,7 @@
         }
 
         function respawnItem2() {
-            backgroundWidth = $("#background").width() + 250;
+            backgroundWidth = $("#background").width() + 650;
             $(".item2").css({
                 "left": backgroundWidth + "px",
                 "top": "380px"
@@ -438,7 +468,6 @@
             collisionCheck();
             requestAnimationFrame(gameLoop);
         }
-
     </script>
 </head>
 <body>
@@ -448,6 +477,7 @@
         <div id="timer">Timer: 60</div>
         <div id="startText">모험 시작</div>
         <div id="gameOverText"></div>
+        <div id="gameOverscoreText"></div>
         <div id="player"></div>
         <div class="enemy">
             <img src="assets/Images/민트%20초코%20아이스크림.png" width="50px">
@@ -457,7 +487,7 @@
         </div>
 
         <div class="item1">
-            <img src="assets/Images/butterbbang.png" width="50px" style = "left: 1100px">
+            <img src="assets/Images/butterbbang.png" width="50px">
         </div>
 
         <div class="item2">
